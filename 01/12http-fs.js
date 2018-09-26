@@ -4,7 +4,7 @@ var fs = require('fs');
 
 var server = http.createServer();
 
-server.on('request', function(req, res){
+server.on('request', function(req, res) {
       
       var url = req .url;
 
@@ -23,6 +23,6 @@ server.on('request', function(req, res){
 	
 });
 
-server.listen(3846, function(){
+server.listen(3846, function() {
 	console.log('Server is running...');
 });
