@@ -19,6 +19,6 @@ server.on('request', function(req, res){
 	}
 });
 
-server.listen(3846, function(){
+server.listen(3846, function () {
 	console.log('Server is running...');
 });
