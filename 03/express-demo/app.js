@@ -10,7 +10,7 @@ var app = express();
 app.get('/', function (req,res) {
 	//在Express中可以直接req.query来获取查询字符串参数
 	console.log(req.query)
-	res.send('hello express!');
+	res.send('hello express!123');
 });
 
 //昨天的可以变成
@@ -29,3 +29,4 @@ app.use('/public', express.static('./public'))
 app.listen(3000, function () {
 	console.log('app is running at port 3000')
 })
+
