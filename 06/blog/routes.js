@@ -15,7 +15,7 @@ router.get('/login' , function (req, res) {
 	res.render('login.html');	
 });
 
-router.post('/login' , function (req, res) {
+router.post('/login' , function (req, res, next) {
 	var body = req.body;
 	User.findOne({
 		email: body.email,
@@ -23,7 +23,8 @@ router.post('/login' , function (req, res) {
 	}, function (err, data) {
 		if (err) {
 			//console.log('111')
-			return res.status(500).json({err_code: 500, message: '服务端错误'});
+			//return res.status(500).json({err_code: 500, message: '服务端错误'});
+		  return next(err);
 		}
 		if (data) {
 			//邮箱和密码正确
@@ -48,7 +49,7 @@ router.get('/register' , function (req, res) {
 	res.render('register.html');	
 });
 
-router.post('/register' , function (req, res) {
+router.post('/register' , function (req, res, next) {
 	var body = req.body;
 	User.findOne({
     $or: [
@@ -61,7 +62,8 @@ router.post('/register' , function (req, res) {
     ]
 	}, function (err, data) {
 		if (err) {
-			return res.status(500).json({err_code: 500, message: '服务端错误'});
+			//return res.status(500).json({err_code: 500, message: '服务端错误'});
+			return next(err);
 		}
 		if (data) {
 			//邮箱或者昵称存在
@@ -71,7 +73,8 @@ router.post('/register' , function (req, res) {
 		body.password = md5(md5(body.password));
 		new User(body).save(function (err, user) {
 			if (err) {
-			return res.status(500).json({err_code: 500, message: '服务端错误'});
+			//return res.status(500).json({err_code: 500, message: '服务端错误'});
+			return next(err);
 			}
 			req.session.user = user; //----------
 		  res.status(200).json({ //express提供的一个方法，该方法接收一个对象为参数，并转为字符串发给浏览器

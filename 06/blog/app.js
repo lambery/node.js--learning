@@ -15,12 +15,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(session({
-	secret: 'keyboard cat', //配置加密字符串，增加安全性
-	resave: false,
-	saveUninitialized: true
+  secret: 'keyboard cat', //配置加密字符串，增加安全性
+  resave: false,
+  saveUninitialized: true
 }));
 
 app.use(router);
+
+//配置一个处理404中间件
+app.use(function (req, res) {
+  res.render('404.html');
+});
+
+//配置一个全局错误处理中间件
+app.use(function (err, req, res, next) { //有错误要在路由中加next(err)
+  res.status(500).json({err_code: 500, message: '服务端错误'});
+})
 
 app.listen(3000, function() {
   console.log('running--3000')
